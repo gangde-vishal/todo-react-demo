@@ -3,9 +3,14 @@ import { v4 as uuidv4 } from "uuid";
 import "./todo-list.css";
 
 const TodoList = () => {
+  const initialState = JSON.parse(localStorage.getItem("todoList")) || [];
+  const [todoList, setTodoList] = useState(initialState);
   const [inputValue, setInputValue] = useState("");
-  const [todoList, setTodoList] = useState([]);
   const [editTodo, setEditTodo] = useState(null);
+
+  useEffect(() => {
+    localStorage.setItem("todoList", JSON.stringify(todoList));
+  }, [todoList]);
 
   useEffect(() => {
     if (editTodo) {
